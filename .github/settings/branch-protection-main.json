@@ -1,7 +1,11 @@
 {
   "required_status_checks": {
-    "strict": false,
-    "contexts": []
+    "strict": true,
+    "contexts": [
+      "Node CI / frontend",
+      "Node CI / backend-node",
+      "Python CI / backend-python"
+    ]
   },
   "enforce_admins": true,
   "required_pull_request_reviews": {
