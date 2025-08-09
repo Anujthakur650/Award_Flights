@@ -1,0 +1,171 @@
+/* Import Google Fonts - must be first */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=DM+Serif+Display:ital@0;1&family=Inter:wght@100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #000000;
+  --foreground: #FFFFFF;
+  --noir-black: #000000;
+  --noir-carbon: #1A1A1A;
+  --noir-card: rgba(26, 26, 26, 0.95);
+  --luxe-gold: #F4C430;
+  --luxe-gold-light: #FFD700;
+  --luxe-gold-bright: #FFEB3B;
+}
+
+/* CSS Variables defined in :root above */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: 'DM Sans', 'Inter', system-ui, sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Custom scrollbar for noir theme */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--noir-carbon);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--luxe-gold);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--luxe-gold-light);
+}
+
+/* Date picker custom styles */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(65%) sepia(89%) saturate(482%) hue-rotate(6deg) brightness(104%) contrast(105%);
+  cursor: pointer;
+}
+
+input[type="date"]::-webkit-datetime-edit {
+  color: #FFFFFF;
+}
+
+input[type="date"]::-webkit-datetime-edit-text {
+  color: #9CA3AF;
+}
+
+input[type="date"]::-webkit-datetime-edit-month-field,
+input[type="date"]::-webkit-datetime-edit-day-field,
+input[type="date"]::-webkit-datetime-edit-year-field {
+  color: #FFFFFF;
+}
+
+/* Remove browser default styles for inputs */
+input[type="text"],
+input[type="date"],
+input[type="number"],
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+/* Number input - hide spin buttons */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* Select dropdown custom arrow */
+select::-ms-expand {
+  display: none;
+}
+
+/* Placeholder text color */
+input::placeholder {
+  color: #636366;
+  opacity: 1;
+}
+
+/* Global utility classes */
+@layer utilities {
+  .text-gradient-gold {
+    background: linear-gradient(to right, #F4C430, #FFEB3B);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .glass-effect {
+    background: rgba(26, 26, 26, 0.95);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 215, 0, 0.1);
+  }
+  
+  .gold-glow {
+    box-shadow: 0 0 30px rgba(244, 196, 48, 0.3);
+  }
+  
+  .gold-glow-hover {
+    transition: all 0.3s ease;
+  }
+  
+  .gold-glow-hover:hover {
+    box-shadow: 0 0 40px rgba(244, 196, 48, 0.5);
+    transform: translateY(-2px);
+  }
+  
+  /* Glass morphism utilities */
+  .glass-card {
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 
+                0 0 0 1px rgba(212,175,55,0.05), 
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+  
+  .glass-input {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .glass-input:focus {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(212, 175, 55, 0.5);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+  }
+  
+  /* Custom select dropdown arrow for dark theme */
+  .select-custom {
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23F4C430' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.5rem center;
+    background-size: 1.5em 1.5em;
+    padding-right: 2.5rem;
+  }
+}
