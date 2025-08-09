@@ -1,0 +1,29 @@
+{
+  "name": "Award_Flights",
+  "description": "AeroPoints - Premium award flight search platform with Next.js frontend and FastAPI backend.",
+  "homepage": "",
+  "private": false,
+  "visibility": "public",
+  "has_issues": true,
+  "has_projects": false,
+  "has_wiki": false,
+  "is_template": false,
+  "archived": false,
+  "allow_squash_merge": true,
+  "allow_merge_commit": false,
+  "allow_rebase_merge": true,
+  "delete_branch_on_merge": true,
+  "topics": [
+    "nextjs",
+    "fastapi",
+    "typescript",
+    "python",
+    "award-flights",
+    "travel",
+    "pwa",
+    "tailwindcss"
+  ],
+  "default_branch": "main"
+}
+
+
