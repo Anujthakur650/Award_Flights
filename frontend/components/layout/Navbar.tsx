@@ -15,6 +15,7 @@ export default function Navbar() {
         <nav className="flex items-center gap-3">
           <Link href="/legal/terms" className="text-sm text-white/80 hover:text-white">Terms</Link>
           <Link href="/legal/privacy" className="text-sm text-white/80 hover:text-white">Privacy</Link>
+          <Link href="/legal/cookies" className="text-sm text-white/80 hover:text-white">Cookies</Link>
           <SignedOut>
             <SignInButton mode="modal">
               <button className="rounded-md border border-white/15 px-3 py-1.5 text-sm text-white hover:bg-white/10 transition">
