@@ -11,7 +11,13 @@ const seatsAeroService = new SeatsAeroService();
 
 // Enable CORS for frontend
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:3001'],
+  origin: [
+    'http://localhost:3000',
+    'http://localhost:3001',
+    'https://award-flights.vercel.app',
+    'https://award-flights-anujthakur650-5380-anuj-singhs-projects-630eb593.vercel.app',
+    'https://award-flights-anuj-singhs-projects-630eb593.vercel.app'
+  ],
   credentials: true
 }));
 app.use(express.json());
