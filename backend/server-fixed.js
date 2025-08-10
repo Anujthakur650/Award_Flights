@@ -9,11 +9,29 @@ const PORT = process.env.PORT || 5001;
 // Initialize Seats.aero service
 const seatsAeroService = new SeatsAeroService();
 
-// Enable CORS for frontend
-app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:3001'],
-  credentials: true
-}));
+// Enable CORS for frontend (configurable via ALLOWED_ORIGINS env)
+(() => {
+  const allowed = process.env.ALLOWED_ORIGINS;
+  if (allowed && allowed.trim() === '*') {
+    app.use(cors({ origin: true, credentials: true }));
+  } else if (allowed && allowed.trim().length > 0) {
+    const list = allowed.split(',').map(s => s.trim()).filter(Boolean);
+    app.use(cors({
+      origin: (origin, cb) => {
+        if (!origin) return cb(null, true);
+        if (list.includes(origin)) return cb(null, true);
+        return cb(new Error('Not allowed by CORS'));
+      },
+      credentials: true
+    }));
+  } else {
+    // Fallback for local development
+    app.use(cors({
+      origin: ['http://localhost:3000', 'http://localhost:3001'],
+      credentials: true
+    }));
+  }
+})();
 app.use(express.json());
 
 // Load airport-codes library safely
