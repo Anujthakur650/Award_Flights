@@ -149,7 +149,7 @@ const EnhancedSearchForm: React.FC = () => {
   };
 
   const inputClassName = cn(
-    'w-full px-4 py-3 pl-10',
+    'w-full px-4 pl-10 min-h-[44px] md:min-h-[40px] py-3',
     'bg-white/5 backdrop-blur-medium',
     'border border-white/10',
     'rounded-lg',
@@ -166,7 +166,7 @@ const EnhancedSearchForm: React.FC = () => {
   const labelClassName = "block text-xs font-medium text-white/60 uppercase tracking-wider mb-2";
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <form onSubmit={handleSubmit} className="space-y-4 md:space-y-6">
       {/* Title Section */}
       <motion.div 
         className="text-center mb-6"
@@ -180,9 +180,9 @@ const EnhancedSearchForm: React.FC = () => {
       </motion.div>
 
       {/* Form Grid */}
-      <div className="space-y-4">
+      <div className="space-y-4 md:space-y-6">
         {/* Row 1: From and To */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
           <div className="relative">
             <label htmlFor="from" className={labelClassName}>
               <MapPin className="inline w-3 h-3 mr-1" />
@@ -325,7 +325,7 @@ const EnhancedSearchForm: React.FC = () => {
         </div>
 
         {/* Row 2: Travel Date and Loyalty Program */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
           <div className="relative">
             <label htmlFor="travelDate" className={labelClassName}>
               <Calendar className="inline w-3 h-3 mr-1" />
@@ -370,7 +370,7 @@ const EnhancedSearchForm: React.FC = () => {
         </div>
 
         {/* Row 3: Travelers and Cabin Class */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
           <div className="relative">
             <label htmlFor="travelers" className={labelClassName}>
               <Users className="inline w-3 h-3 mr-1" />

@@ -4,7 +4,6 @@
   "installCommand": "npm ci",
   "outputDirectory": ".next",
   "devCommand": "npm run dev",
-  "rootDirectory": ".",
   "github": {
     "enabled": true,
     "autoJobCancelation": true
