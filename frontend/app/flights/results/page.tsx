@@ -231,31 +231,31 @@ export default function FlightResultsPage() {
         <motion.header
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="pt-8 md:pt-8 pb-5 md:pb-6 px-3 sm:px-4 border-b border-white/5"
+          className="pt-9 md:pt-8 pb-5 md:pb-6 px-4 sm:px-6 border-b border-white/5"
         >
           <div className="container mx-auto max-w-7xl">
-            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-3 md:gap-4">
-              <div className="flex items-center gap-3 md:gap-4">
+            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 md:gap-4">
+              <div className="flex items-center gap-3 md:gap-4 w-full md:w-auto">
                 <Link href="/">
-                  <PremiumButton variant="ghost" size="sm">
+                  <PremiumButton variant="ghost" size="sm" className="ml-0 md:ml-0">
                     <ArrowLeft size={18} className="mr-2" />
                     Back
                   </PremiumButton>
                 </Link>
-                <div>
-                  <h1 className="text-2xl font-bold tracking-wider">
+                <div className="ml-1 md:ml-0">
+                  <h1 className="text-2xl font-bold tracking-wider leading-tight md:leading-normal">
                     <span className="text-white">AERO</span>
                     <span className="bg-gradient-to-r from-luxe-gold-dark to-luxe-gold-bright bg-clip-text text-transparent ml-2">POINTS</span>
                   </h1>
                 </div>
               </div>
               
-              <div className="flex items-center gap-3 md:gap-4 mt-2 md:mt-0">
-                <div className="text-right">
-                  <p className="text-white text-lg">
+              <div className="flex items-center gap-3 md:gap-4 mt-1 md:mt-0 w-full md:w-auto">
+                <div className="text-left md:text-right leading-snug">
+                  <p className="text-white text-lg mt-1 md:mt-0">
                     {searchParams.from} → {searchParams.to}
                   </p>
-                  <p className="text-gray-400 text-sm">
+                  <p className="text-gray-400 text-sm mt-1">
                     {searchParams.travelDate} • {searchParams.travelers} Passenger(s) • {searchParams.cabinClass}
                   </p>
                 </div>
@@ -264,7 +264,7 @@ export default function FlightResultsPage() {
                   variant="ghost" 
                   size="sm"
                   onClick={() => setShowModifySearch(true)}
-                  className="flex items-center gap-2 mt-2 md:mt-0"
+                  className="flex items-center gap-2 mt-2 md:mt-0 mr-1 md:mr-0 shrink-0"
                 >
                   <Settings size={16} />
                   Modify
@@ -284,7 +284,7 @@ export default function FlightResultsPage() {
           >
             <GlassContainer variant="dark" blur="soft" className="p-4">
               <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-3 md:gap-4">
-                <div className="flex flex-wrap items-center gap-2 md:gap-4 text-sm w-full">
+                <div className="flex flex-wrap items-center gap-3 md:gap-4 text-sm w-full">
                   <div className="flex items-center gap-2 text-gray-300">
                     <MapPin size={16} />
                     <span>{searchParams.from} → {searchParams.to}</span>
@@ -297,18 +297,18 @@ export default function FlightResultsPage() {
                     <Users size={16} />
                     <span>{searchParams.travelers} traveler(s)</span>
                   </div>
-                  <div className="px-2 py-1 bg-luxe-gold/10 text-luxe-gold text-xs rounded-full">
+                  <div className="px-3 py-1.5 bg-luxe-gold/10 text-luxe-gold text-xs rounded-full shrink-0 mt-1 md:mt-0">
                     {searchParams.cabinClass}
                   </div>
                 </div>
-                <div className="flex items-center gap-2 md:gap-3 w-full md:w-auto justify-between md:justify-end">
+                <div className="flex flex-wrap items-center gap-2 md:gap-3 w-full md:w-auto justify-between md:justify-end">
                   <div className="flex items-center gap-2 text-sm">
-                    <label htmlFor="sortBy" className="text-gray-400 uppercase tracking-wider text-xs">Sort by</label>
+                    <label htmlFor="sortBy" className="text-gray-400 uppercase tracking-wider text-xs mr-1">Sort by</label>
                     <select
                       id="sortBy"
                       value={sortOption}
                       onChange={(e) => setSortOption(e.target.value as FlightSortOption)}
-                      className="bg-white/5 text-white border border-white/10 rounded-md px-3 py-2 text-sm focus:outline-none focus:border-luxe-gold/50 focus:ring-2 focus:ring-luxe-gold/20 min-w-[150px]"
+                      className="bg-white/5 text-white border border-white/10 rounded-md px-3 py-2 text-sm focus:outline-none focus:border-luxe-gold/50 focus:ring-2 focus:ring-luxe-gold/20 min-w-[170px] shrink-0"
                     >
                       <option value="none">Default</option>
                       <option value="lowestMiles">Lowest Points</option>
@@ -320,7 +320,7 @@ export default function FlightResultsPage() {
                     variant="ghost" 
                     size="sm"
                     onClick={() => setShowModifySearch(true)}
-                    className="flex items-center gap-2 whitespace-nowrap mt-2 md:mt-0"
+                    className="flex items-center gap-2 whitespace-nowrap mt-2 md:mt-0 shrink-0"
                   >
                     <Settings size={16} />
                     Modify Search
@@ -334,12 +334,12 @@ export default function FlightResultsPage() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mb-6"
+            className="mt-6 mb-6"
           >
             <h2 className="text-3xl font-display bg-gradient-to-r from-luxe-gold-dark to-luxe-gold-bright bg-clip-text text-transparent mb-2">
               Available Award Flights
             </h2>
-            <p className="text-white/60">
+            <p className="text-white/60 mt-1">
               Found {flights.length} flights matching your criteria
             </p>
           </motion.div>
@@ -487,9 +487,9 @@ export default function FlightResultsPage() {
           {/* No Results */}
           {flights.length === 0 && (
             <GlassContainer variant="dark" blur="medium" className="p-12 text-center">
-              <Plane className="mx-auto text-luxe-gold mb-4" size={48} />
-              <h3 className="text-xl font-semibold text-white mb-2">No Award Flights Available</h3>
-              <p className="text-gray-400 mb-4">
+              <Plane className="mx-auto text-luxe-gold mb-6 md:mb-4" size={48} />
+              <h3 className="text-xl font-semibold text-white mb-3">No Award Flights Available</h3>
+              <p className="text-gray-400 mb-5">
                 We couldn&apos;t find any award availability for your selected route and date.
               </p>
               <p className="text-gray-500 text-sm mb-6">
