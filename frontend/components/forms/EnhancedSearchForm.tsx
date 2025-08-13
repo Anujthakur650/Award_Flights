@@ -6,7 +6,7 @@ import PremiumButton from '../ui/PremiumButton';
 import { cn } from '@/lib/utils';
 import { api, type Airport } from '@/lib/api';
 import { useRouter } from 'next/navigation';
-import { Plane, MapPin, Calendar, Users, Briefcase, Search, Globe, Clock } from 'lucide-react';
+import { Plane, MapPin, Calendar, Users, Briefcase, Search, Globe, Clock, ArrowLeftRight } from 'lucide-react';
 
 const EnhancedSearchForm: React.FC = () => {
   const router = useRouter();
@@ -38,6 +38,53 @@ const EnhancedSearchForm: React.FC = () => {
     from: boolean;
     to: boolean;
   }>({ from: false, to: false });
+
+  // Prefill the form from a previous session search (if available)
+  useEffect(() => {
+    try {
+      const raw = sessionStorage.getItem('flightSearchParams');
+      if (!raw) return;
+      const parsed = JSON.parse(raw) as {
+        from?: string;
+        to?: string;
+        fromCity?: string;
+        toCity?: string;
+        travelDate?: string;
+      } | null;
+      if (!parsed) return;
+
+      const fromCode = parsed.from?.trim();
+      const toCode = parsed.to?.trim();
+      const fromCity = parsed.fromCity?.trim();
+      const toCity = parsed.toCity?.trim();
+
+      // Set text values immediately for fast UX
+      setFormData(prev => ({
+        ...prev,
+        from: fromCode && fromCity ? `${fromCode} - ${fromCity}` : (fromCode ?? prev.from),
+        to: toCode && toCity ? `${toCode} - ${toCity}` : (toCode ?? prev.to),
+        travelDate: parsed.travelDate ?? prev.travelDate,
+      }));
+
+      // Resolve full airport objects in the background for accurate submit
+      (async () => {
+        try {
+          const [fromObj, toObj] = await Promise.all([
+            fromCode ? api.getAirport(fromCode) : Promise.resolve(undefined),
+            toCode ? api.getAirport(toCode) : Promise.resolve(undefined),
+          ]);
+          setSelectedAirports({
+            from: (fromObj as Airport) ?? null,
+            to: (toObj as Airport) ?? null,
+          });
+        } catch {
+          // Silent fallback: leave selectedAirports as-is if fetch fails
+        }
+      })();
+    } catch {
+      // ignore malformed storage
+    }
+  }, [api]);
 
   // Debounced airport search
   const searchAirports = useCallback(async (query: string, field: 'from' | 'to') => {
@@ -148,6 +195,20 @@ const EnhancedSearchForm: React.FC = () => {
     }));
   };
 
+  // Swap departure and arrival values (text and selected airport objects)
+  const handleSwapAirports = () => {
+    setFormData(prev => ({
+      ...prev,
+      from: prev.to,
+      to: prev.from,
+    }));
+    setSelectedAirports(prev => ({
+      from: prev.to,
+      to: prev.from,
+    }));
+    setShowSuggestions({ from: false, to: false });
+  };
+
   const inputClassName = cn(
     'w-full px-4 pl-10 min-h-[44px] md:min-h-[40px] py-3',
     'bg-white/5 backdrop-blur-medium',
@@ -181,8 +242,8 @@ const EnhancedSearchForm: React.FC = () => {
 
       {/* Form Grid */}
       <div className="space-y-4 md:space-y-6">
-        {/* Row 1: From and To */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
+        {/* Row 1: From and To with Swap */}
+        <div className="relative grid grid-cols-1 md:grid-cols-2 gap-3 md:gap-4">
           <div className="relative">
             <label htmlFor="from" className={labelClassName}>
               <MapPin className="inline w-3 h-3 mr-1" />
@@ -251,6 +312,19 @@ const EnhancedSearchForm: React.FC = () => {
                 </motion.div>
               )}
             </AnimatePresence>
+          </div>
+
+          {/* Mobile swap button (renders between stacked inputs) */}
+          <div className="md:hidden flex items-center justify-center">
+            <button
+              type="button"
+              onClick={handleSwapAirports}
+              aria-label="Swap departure and arrival"
+              title="Swap departure and arrival"
+              className="h-10 w-10 flex items-center justify-center rounded-full border border-white/15 bg-white/10 backdrop-blur-md text-white shadow-lg transition active:scale-95 hover:bg-white/15 focus:outline-none focus:ring-2 focus:ring-luxe-gold/30"
+            >
+              <ArrowLeftRight className="w-5 h-5 text-luxe-gold" />
+            </button>
           </div>
           
           <div className="relative">
@@ -322,6 +396,17 @@ const EnhancedSearchForm: React.FC = () => {
               )}
             </AnimatePresence>
           </div>
+
+          {/* Desktop swap button (overlaid between columns) */}
+          <button
+            type="button"
+            onClick={handleSwapAirports}
+            aria-label="Swap departure and arrival"
+            title="Swap departure and arrival"
+            className="hidden md:flex absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-11 w-11 items-center justify-center rounded-full border border-white/15 bg-white/10 backdrop-blur-md text-white shadow-xl transition active:scale-95 hover:bg-white/15 focus:outline-none focus:ring-2 focus:ring-luxe-gold/30"
+          >
+            <ArrowLeftRight className="w-5 h-5 text-luxe-gold" />
+          </button>
         </div>
 
         {/* Row 2: Travel Date and Loyalty Program */}

@@ -62,8 +62,8 @@ const AeroPointsHero: React.FC = () => {
                   whileHover={{ scale: 1.05 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <span className="text-white">AERO</span>
-                  <span className="bg-gradient-to-r from-luxe-gold-dark to-luxe-gold-bright bg-clip-text text-transparent ml-2">POINTS</span>
+                  <span className="text-white">Premium</span>
+                  <span className="bg-gradient-to-r from-luxe-gold-dark to-luxe-gold-bright bg-clip-text text-transparent ml-2">Award Flights</span>
                 </motion.div>
               </div>
               {/* Background selector removed per request; default image retained in /public/images/hero-sunset-bg.jpg for future reuse. */}
