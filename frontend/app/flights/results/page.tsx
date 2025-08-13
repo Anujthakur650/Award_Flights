@@ -231,13 +231,13 @@ export default function FlightResultsPage() {
         <motion.header
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="pt-9 md:pt-8 pb-5 md:pb-6 px-4 sm:px-6 border-b border-white/5"
+          className="pt-10 md:pt-8 pb-5 md:pb-6 md:px-6 border-b border-white/5 pl-[max(1.25rem,_env(safe-area-inset-left))] pr-[max(1.25rem,_env(safe-area-inset-right))]"
         >
           <div className="container mx-auto max-w-7xl">
             <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 md:gap-4">
               <div className="flex items-center gap-3 md:gap-4 w-full md:w-auto">
                 <Link href="/">
-                  <PremiumButton variant="ghost" size="sm" className="ml-0 md:ml-0">
+                  <PremiumButton variant="ghost" size="sm" className="ml-0 md:ml-0 min-h-[44px] px-4">
                     <ArrowLeft size={18} className="mr-2" />
                     Back
                   </PremiumButton>
@@ -255,7 +255,7 @@ export default function FlightResultsPage() {
                   <p className="text-white text-lg mt-1 md:mt-0">
                     {searchParams.from} → {searchParams.to}
                   </p>
-                  <p className="text-gray-400 text-sm mt-1">
+                  <p className="text-gray-400 text-sm mt-2">
                     {searchParams.travelDate} • {searchParams.travelers} Passenger(s) • {searchParams.cabinClass}
                   </p>
                 </div>
@@ -264,7 +264,7 @@ export default function FlightResultsPage() {
                   variant="ghost" 
                   size="sm"
                   onClick={() => setShowModifySearch(true)}
-                  className="flex items-center gap-2 mt-2 md:mt-0 mr-1 md:mr-0 shrink-0"
+                  className="flex items-center gap-2 mt-2 md:mt-0 mr-0 md:mr-0 shrink-0 min-h-[44px] px-4"
                 >
                   <Settings size={16} />
                   Modify
@@ -275,15 +275,15 @@ export default function FlightResultsPage() {
         </motion.header>
 
         {/* Results */}
-        <div className="container mx-auto max-w-7xl px-3 sm:px-4 py-6 md:py-8">
+        <div className="container mx-auto max-w-7xl md:px-6 px-5 sm:px-6 py-6 md:py-8 pl-[max(1.25rem,_env(safe-area-inset-left))] pr-[max(1.25rem,_env(safe-area-inset-right))]">
           {/* Quick Modify Bar */}
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mb-6"
+            className="mb-8"
           >
-            <GlassContainer variant="dark" blur="soft" className="p-4">
-              <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-3 md:gap-4">
+            <GlassContainer variant="dark" blur="soft" className="p-5">
+              <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-3 md:gap-4 gap-y-4">
                 <div className="flex flex-wrap items-center gap-3 md:gap-4 text-sm w-full">
                   <div className="flex items-center gap-2 text-gray-300">
                     <MapPin size={16} />
@@ -301,14 +301,14 @@ export default function FlightResultsPage() {
                     {searchParams.cabinClass}
                   </div>
                 </div>
-                <div className="flex flex-wrap items-center gap-2 md:gap-3 w-full md:w-auto justify-between md:justify-end">
+                <div className="flex flex-wrap items-center gap-2 md:gap-3 w-full md:w-auto justify-between md:justify-end mt-1 md:mt-0">
                   <div className="flex items-center gap-2 text-sm">
-                    <label htmlFor="sortBy" className="text-gray-400 uppercase tracking-wider text-xs mr-1">Sort by</label>
+                    <label htmlFor="sortBy" className="text-gray-400 uppercase tracking-wider text-xs mr-2">Sort by</label>
                     <select
                       id="sortBy"
                       value={sortOption}
                       onChange={(e) => setSortOption(e.target.value as FlightSortOption)}
-                      className="bg-white/5 text-white border border-white/10 rounded-md px-3 py-2 text-sm focus:outline-none focus:border-luxe-gold/50 focus:ring-2 focus:ring-luxe-gold/20 min-w-[170px] shrink-0"
+                      className="bg-white/5 text-white border border-white/10 rounded-md px-3 h-11 text-sm focus:outline-none focus:border-luxe-gold/50 focus:ring-2 focus:ring-luxe-gold/20 min-w-[190px] shrink-0"
                     >
                       <option value="none">Default</option>
                       <option value="lowestMiles">Lowest Points</option>
@@ -320,7 +320,7 @@ export default function FlightResultsPage() {
                     variant="ghost" 
                     size="sm"
                     onClick={() => setShowModifySearch(true)}
-                    className="flex items-center gap-2 whitespace-nowrap mt-2 md:mt-0 shrink-0"
+                    className="flex items-center gap-2 whitespace-nowrap mt-2 md:mt-0 shrink-0 min-h-[44px] px-4"
                   >
                     <Settings size={16} />
                     Modify Search
@@ -334,12 +334,12 @@ export default function FlightResultsPage() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mt-6 mb-6"
+            className="mt-8 mb-6"
           >
             <h2 className="text-3xl font-display bg-gradient-to-r from-luxe-gold-dark to-luxe-gold-bright bg-clip-text text-transparent mb-2">
               Available Award Flights
             </h2>
-            <p className="text-white/60 mt-1">
+            <p className="text-white/60 mt-2">
               Found {flights.length} flights matching your criteria
             </p>
           </motion.div>
