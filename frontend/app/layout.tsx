@@ -3,6 +3,7 @@ import { DM_Sans, DM_Serif_Display, Inter } from "next/font/google";
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
 import Navbar from "@/components/layout/Navbar";
+import Footer from "@/components/layout/Footer";
 
 const dmSans = DM_Sans({
   variable: "--font-dm-sans",
@@ -47,7 +48,8 @@ export default function RootLayout({
           signUpUrl="/sign-up"
         >
           <Navbar />
-          {children}
+          <div className="min-h-[calc(100vh-3.5rem)] flex flex-col">{children}</div>
+          <Footer />
         </ClerkProvider>
       </body>
     </html>

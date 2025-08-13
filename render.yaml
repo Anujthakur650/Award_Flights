@@ -1,0 +1,37 @@
+services:
+  - type: web
+    name: aeropoints-api
+    env: python
+    rootDir: backend
+    plan: free
+    buildCommand: |
+      pip install --upgrade pip
+      pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    autoDeploy: true
+    envVars:
+      - key: ENVIRONMENT
+        value: production
+      - key: DEBUG
+        value: "false"
+      - key: SECRET_KEY
+        value: REPLACE_WITH_STRONG_SECRET
+      - key: DATABASE_URL
+        value: REPLACE_WITH_POSTGRES_URL
+      - key: ALLOWED_ORIGINS
+        value: '["https://YOUR-VERCEL-URL","https://YOUR-CUSTOM-DOMAIN"]'
+      - key: CLERK_ISSUER
+        value: REPLACE_WITH_CLERK_ISSUER
+      - key: CLERK_AUDIENCE
+        value: REPLACE_WITH_CLERK_AUDIENCE
+      - key: SEATS_AERO_API_KEY
+        value: REPLACE_WITH_SEATSAERO_KEY
+      - key: RESEND_API_KEY
+        value: REPLACE_WITH_RESEND_KEY
+      - key: EMAIL_FROM
+        value: noreply@yourdomain.com
+      - key: REDIS_URL
+        value: redis://REPLACE:6379
+
+

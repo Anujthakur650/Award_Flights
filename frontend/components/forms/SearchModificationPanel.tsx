@@ -26,7 +26,14 @@ interface SearchModificationPanelProps {
     cabinClass: string;
     loyaltyProgram?: string;
   };
-  onSearch: (params: any) => void;
+  onSearch: (params: {
+    from: string;
+    to: string;
+    date: string;
+    cabinClass?: string;
+    passengers?: number;
+    loyaltyProgram?: string;
+  }) => void;
   onClose: () => void;
   isVisible: boolean;
 }

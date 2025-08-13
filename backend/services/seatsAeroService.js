@@ -112,7 +112,7 @@ class SeatsAeroService {
         };
 
         response = await axios.post(
-          `${this.baseURL}${this.partnerAPIPath}/search`,
+          `${this.baseURL}${this.partnerAPIPath}/live/search`,
           liveSearchBody,
           { 
             headers: this.headers,
@@ -468,6 +468,17 @@ class SeatsAeroService {
     const taxesCurrency = trip.TaxesCurrency || trip.Currency || 'USD';
     const taxes = taxesMinor > 0 ? taxesMinor / 100 : 0;
 
+    // Enforce cabin class match against request and normalize label
+    const requestedCabinKey = this.mapCabinClass(searchParams.cabinClass) || 'economy';
+    let tripCabinKey = typeof trip.Cabin === 'string' ? trip.Cabin.toLowerCase() : null;
+    if (!['economy','premium','business','first'].includes(tripCabinKey || '')) {
+      const segCab = typeof segments[0]?.Cabin === 'string' ? segments[0].Cabin.toLowerCase() : null;
+      if (['economy','premium','business','first'].includes(segCab || '')) tripCabinKey = segCab;
+    }
+    const cabinKey = tripCabinKey || requestedCabinKey;
+    if (cabinKey !== requestedCabinKey) return null;
+    const cabinDisplay = this.formatCabinClass(cabinKey);
+
     // Normalize result: identity + one offer (program)
     return {
       operatingAirline: this.getAirlineName(primaryAirline),
@@ -500,7 +511,7 @@ class SeatsAeroService {
       arrivalTimeLocal: arrTimeLocal ? stripZ(arrTimeLocal) : null,
       bookingProgram: this.mapLoyaltyProgram(trip.Source),
       bookingProgramCode: trip.Source,
-      cabinClass: trip.Cabin || searchParams.cabinClass || 'Economy',
+      cabinClass: cabinDisplay,
       realData: true
     };
   }

@@ -1,0 +1,13 @@
+{
+  "buildCommand": "npm run build",
+  "framework": "nextjs",
+  "installCommand": "npm ci",
+  "outputDirectory": ".next",
+  "devCommand": "npm run dev",
+  "github": {
+    "enabled": true,
+    "autoJobCancelation": true
+  }
+}
+
+

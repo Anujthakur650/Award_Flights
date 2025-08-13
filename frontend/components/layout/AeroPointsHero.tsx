@@ -62,8 +62,8 @@ const AeroPointsHero: React.FC = () => {
                   whileHover={{ scale: 1.05 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <span className="text-white">AERO</span>
-                  <span className="bg-gradient-to-r from-luxe-gold-dark to-luxe-gold-bright bg-clip-text text-transparent ml-2">POINTS</span>
+                  <span className="text-white">Premium</span>
+                  <span className="bg-gradient-to-r from-luxe-gold-dark to-luxe-gold-bright bg-clip-text text-transparent ml-2">Award Flights</span>
                 </motion.div>
               </div>
               {/* Background selector removed per request; default image retained in /public/images/hero-sunset-bg.jpg for future reuse. */}
@@ -86,9 +86,9 @@ const AeroPointsHero: React.FC = () => {
               className="max-w-2xl mx-auto"
             >
               {/* Card Header with Title */}
-              <div className="relative px-8 pt-8 pb-6 text-center">
+              <div className="relative px-6 sm:px-8 pt-6 sm:pt-8 pb-5 sm:pb-6 text-center">
                 <motion.h1 
-                  className="text-3xl md:text-4xl font-bold uppercase tracking-wide"
+                  className="text-2xl sm:text-3xl md:text-4xl font-bold uppercase tracking-wide"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4, duration: 0.8 }}
@@ -101,7 +101,7 @@ const AeroPointsHero: React.FC = () => {
                 </motion.h1>
                 
                 <motion.p
-                  className="text-gray-300/80 text-sm mt-3"
+                  className="text-gray-300/90 text-sm sm:text-base mt-2"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.6, duration: 0.8 }}
@@ -112,7 +112,7 @@ const AeroPointsHero: React.FC = () => {
               </div>
 
               {/* Search Form */}
-              <div className="px-8 pb-8">
+              <div className="px-6 sm:px-8 pb-6 sm:pb-8">
                 <EnhancedSearchForm />
               </div>
             </GlassContainer>

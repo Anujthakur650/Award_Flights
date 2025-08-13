@@ -9,7 +9,7 @@ import PremiumButton from '@/components/ui/PremiumButton';
 import { sortFlights, type FlightSortOption, getBestMilesForFlight, getDurationMinutesForFlight } from '@/lib/sort';
 import FloatingParticles from '@/components/ui/FloatingParticles';
 import SearchModificationPanel from '@/components/forms/SearchModificationPanel';
-import { type AwardFlight, api } from '@/lib/api';
+import { type AwardFlight, type FlightSearchParams, api } from '@/lib/api';
 import { useApiFetch } from '@/hooks/useAuthorizedFetch';
 import { 
   Plane, 
@@ -27,7 +27,13 @@ import {
 export default function FlightResultsPage() {
   const router = useRouter();
   const [flights, setFlights] = useState<AwardFlight[]>([]);
-  const [searchParams, setSearchParams] = useState<any>({});
+  const [searchParams, setSearchParams] = useState<
+    Partial<FlightSearchParams> & {
+      travelDate?: string;
+      travelers?: string;
+      cabinClass?: string;
+    }
+  >({});
   const [loading, setLoading] = useState(true);
   const [showModifySearch, setShowModifySearch] = useState(false);
   const [isModifying, setIsModifying] = useState(false);
@@ -179,7 +185,7 @@ export default function FlightResultsPage() {
     return `${prefix}${formatted}${suffix}`;
   };
 
-  const handleModifySearch = async (newSearchParams: any) => {
+  const handleModifySearch = async (newSearchParams: FlightSearchParams) => {
     setIsModifying(true);
     setShowModifySearch(false);
     
@@ -225,7 +231,7 @@ export default function FlightResultsPage() {
         <motion.header
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="pt-8 pb-6 px-4 border-b border-white/5"
+          className="pt-6 md:pt-8 pb-5 md:pb-6 px-3 sm:px-4 border-b border-white/5"
         >
           <div className="container mx-auto max-w-7xl">
             <div className="flex items-center justify-between">
@@ -269,7 +275,7 @@ export default function FlightResultsPage() {
         </motion.header>
 
         {/* Results */}
-        <div className="container mx-auto max-w-7xl px-4 py-8">
+        <div className="container mx-auto max-w-7xl px-3 sm:px-4 py-6 md:py-8">
           {/* Quick Modify Bar */}
           <motion.div
             initial={{ opacity: 0, y: -10 }}
@@ -484,7 +490,7 @@ export default function FlightResultsPage() {
               <Plane className="mx-auto text-luxe-gold mb-4" size={48} />
               <h3 className="text-xl font-semibold text-white mb-2">No Award Flights Available</h3>
               <p className="text-gray-400 mb-4">
-                We couldn't find any award availability for your selected route and date.
+                We couldn&apos;t find any award availability for your selected route and date.
               </p>
               <p className="text-gray-500 text-sm mb-6">
                 Try different dates, routes, or cabin classes. Award space is limited and varies by airline.
