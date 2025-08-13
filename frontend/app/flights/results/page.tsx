@@ -231,11 +231,11 @@ export default function FlightResultsPage() {
         <motion.header
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="pt-6 md:pt-8 pb-5 md:pb-6 px-3 sm:px-4 border-b border-white/5"
+          className="pt-8 md:pt-8 pb-5 md:pb-6 px-3 sm:px-4 border-b border-white/5"
         >
           <div className="container mx-auto max-w-7xl">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
+            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-3 md:gap-4">
+              <div className="flex items-center gap-3 md:gap-4">
                 <Link href="/">
                   <PremiumButton variant="ghost" size="sm">
                     <ArrowLeft size={18} className="mr-2" />
@@ -250,7 +250,7 @@ export default function FlightResultsPage() {
                 </div>
               </div>
               
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-3 md:gap-4 mt-2 md:mt-0">
                 <div className="text-right">
                   <p className="text-white text-lg">
                     {searchParams.from} → {searchParams.to}
@@ -264,7 +264,7 @@ export default function FlightResultsPage() {
                   variant="ghost" 
                   size="sm"
                   onClick={() => setShowModifySearch(true)}
-                  className="flex items-center gap-2"
+                  className="flex items-center gap-2 mt-2 md:mt-0"
                 >
                   <Settings size={16} />
                   Modify
@@ -283,8 +283,8 @@ export default function FlightResultsPage() {
             className="mb-6"
           >
             <GlassContainer variant="dark" blur="soft" className="p-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-4 text-sm">
+              <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-3 md:gap-4">
+                <div className="flex flex-wrap items-center gap-2 md:gap-4 text-sm w-full">
                   <div className="flex items-center gap-2 text-gray-300">
                     <MapPin size={16} />
                     <span>{searchParams.from} → {searchParams.to}</span>
@@ -301,14 +301,14 @@ export default function FlightResultsPage() {
                     {searchParams.cabinClass}
                   </div>
                 </div>
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 md:gap-3 w-full md:w-auto justify-between md:justify-end">
                   <div className="flex items-center gap-2 text-sm">
                     <label htmlFor="sortBy" className="text-gray-400 uppercase tracking-wider text-xs">Sort by</label>
                     <select
                       id="sortBy"
                       value={sortOption}
                       onChange={(e) => setSortOption(e.target.value as FlightSortOption)}
-                      className="bg-white/5 text-white border border-white/10 rounded-md px-3 py-2 text-sm focus:outline-none focus:border-luxe-gold/50 focus:ring-2 focus:ring-luxe-gold/20"
+                      className="bg-white/5 text-white border border-white/10 rounded-md px-3 py-2 text-sm focus:outline-none focus:border-luxe-gold/50 focus:ring-2 focus:ring-luxe-gold/20 min-w-[150px]"
                     >
                       <option value="none">Default</option>
                       <option value="lowestMiles">Lowest Points</option>
@@ -320,7 +320,7 @@ export default function FlightResultsPage() {
                     variant="ghost" 
                     size="sm"
                     onClick={() => setShowModifySearch(true)}
-                    className="flex items-center gap-2"
+                    className="flex items-center gap-2 whitespace-nowrap mt-2 md:mt-0"
                   >
                     <Settings size={16} />
                     Modify Search
@@ -353,11 +353,11 @@ export default function FlightResultsPage() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.1 }}
               >
-                <GlassContainer variant="dark" blur="medium" className="p-6 hover:border-luxe-gold/30 transition-all">
-                  <div className="flex items-center justify-between">
+                <GlassContainer variant="dark" blur="medium" className="p-5 md:p-6 hover:border-luxe-gold/30 transition-all">
+                  <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                     {/* Flight Info */}
                     <div className="flex-1">
-                      <div className="flex items-center gap-6 mb-4">
+                      <div className="flex items-center gap-4 md:gap-6 mb-3 md:mb-4">
                         <div>
                           <p className="text-2xl font-bold text-white">{formatTime(flight.departureTimeLocal || flight.departureTime)}</p>
                           <p className="text-sm text-gray-400">{flight.from.code}</p>
@@ -448,14 +448,14 @@ export default function FlightResultsPage() {
                     </div>
 
                     {/* Points & Availability */}
-                    <div className="text-right ml-8 w-72">
+                    <div className="w-full md:w-72 ml-0 md:ml-8 mt-4 md:mt-0 text-left md:text-right">
                       {flight.offers && flight.offers.length > 0 ? (
                         <>
                           {(() => {
                             const sorted = [...flight.offers].sort((a, b) => (a.miles || Infinity) - (b.miles || Infinity));
                             const best = sorted[0];
                             return (
-                              <div className="mb-4 text-left">
+                              <div className="mb-4 text-left md:text-right">
                                 <p className="text-xs text-gray-400 mb-1">Best offer</p>
                                 <p className="text-2xl font-bold text-white">{best.miles?.toLocaleString() ?? '—'} miles</p>
                                 <p className="text-xs text-gray-400">via {best.program} • {best.cabin || 'Cabin'} • {best.remainingSeats ?? '—'} seats • {formatTaxes(best.taxes, best.currency)}</p>
