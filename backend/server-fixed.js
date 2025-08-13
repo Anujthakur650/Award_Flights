@@ -9,9 +9,34 @@ const PORT = process.env.PORT || 5001;
 // Initialize Seats.aero service
 const seatsAeroService = new SeatsAeroService();
 
-// Enable CORS for frontend
+// Enable CORS for frontend (configurable via env)
+const defaultCorsOrigins = ['http://localhost:3000', 'http://localhost:3001'];
+function parseOriginsEnv(raw) {
+  try {
+    if (!raw) return [];
+    const trimmed = raw.trim();
+    if (trimmed.startsWith('[')) {
+      return JSON.parse(trimmed);
+    }
+    return trimmed.split(',').map(s => s.trim()).filter(Boolean);
+  } catch {
+    return [];
+  }
+}
+
+const envCorsOrigins = parseOriginsEnv(process.env.ALLOWED_ORIGINS || process.env.CORS_ORIGINS);
+const allowedExactOrigins = Array.from(new Set([...defaultCorsOrigins, ...envCorsOrigins]));
+
+// Allow our Vercel preview deployments for this project without needing code changes
+const vercelPreviewPattern = /^https:\/\/award-flights.*\.vercel\.app$/i;
+
 app.use(cors({
-  origin: ['http://localhost:3000', 'http://localhost:3001'],
+  origin: (origin, callback) => {
+    if (!origin) return callback(null, true); // SSR, CLI, curl
+    if (allowedExactOrigins.includes(origin)) return callback(null, true);
+    if (vercelPreviewPattern.test(origin)) return callback(null, true);
+    return callback(new Error('Not allowed by CORS'));
+  },
   credentials: true
 }));
 app.use(express.json());
