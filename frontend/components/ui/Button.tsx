@@ -1,17 +1,19 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, type HTMLMotionProps } from 'framer-motion';
 import { LucideIcon } from 'lucide-react';
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+type ButtonBaseProps = {
   variant?: 'primary' | 'secondary' | 'outline' | 'ghost';
   size?: 'sm' | 'md' | 'lg';
   icon?: LucideIcon;
   iconPosition?: 'left' | 'right';
   isLoading?: boolean;
   children: React.ReactNode;
-}
+};
+
+type ButtonProps = ButtonBaseProps & HTMLMotionProps<'button'>;
 
 const Button: React.FC<ButtonProps> = ({
   variant = 'primary',
