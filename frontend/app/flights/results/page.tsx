@@ -336,7 +336,7 @@ export default function FlightResultsPage() {
             animate={{ opacity: 1, y: 0 }}
             className="mt-8 mb-6"
           >
-            <h2 className="text-3xl font-display bg-gradient-to-r from-luxe-gold-dark to-luxe-gold-bright bg-clip-text text-transparent mb-2">
+            <h2 className="text-2xl md:text-3xl font-display bg-gradient-to-r from-luxe-gold-dark to-luxe-gold-bright bg-clip-text text-transparent mb-2">
               Available Award Flights
             </h2>
             <p className="text-white/60 mt-2">
@@ -457,7 +457,7 @@ export default function FlightResultsPage() {
                             return (
                               <div className="mb-4 text-left md:text-right">
                                 <p className="text-xs text-gray-400 mb-1">Best offer</p>
-                                <p className="text-2xl font-bold text-white">{best.miles?.toLocaleString() ?? '—'} miles</p>
+                                <p className="text-xl md:text-2xl font-bold text-white">{best.miles?.toLocaleString() ?? '—'} miles</p>
                                 <p className="text-xs text-gray-400">via {best.program} • {best.cabin || 'Cabin'} • {best.remainingSeats ?? '—'} seats • {formatTaxes(best.taxes, best.currency)}</p>
                               </div>
                             );
@@ -470,7 +470,7 @@ export default function FlightResultsPage() {
                               </div>
                             ))}
                           </div>
-                          <PremiumButton variant="gradient" size="sm" className="w-full mt-3">
+                           <PremiumButton variant="gradient" size="sm" className="w-full mt-3 min-h-[44px]">
                             Select Flight
                           </PremiumButton>
                         </>

@@ -10,7 +10,7 @@ export default function Navbar() {
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-white/10 bg-noir-black/70 backdrop-blur-md">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 min-h-14 py-2 md:py-0 md:h-14">
+      <div className="mx-auto flex max-w-7xl items-center justify-between min-h-14 py-2 md:py-0 md:h-14 pl-[max(1rem,_env(safe-area-inset-left))] pr-[max(1rem,_env(safe-area-inset-right))]">
         {isResultsPage ? (
           <Link href="/" className="font-display text-lg tracking-wider text-white hover:opacity-90">
             Home
